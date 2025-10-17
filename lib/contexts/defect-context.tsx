@@ -38,4 +38,10 @@ export const DefectProvider = ({ children }: any) => {
   );
 };
 
-export const useDefect = () => useContext(DefectContext);
+export const useDefect = () => {
+  const context = useContext(DefectContext);
+  if (context === undefined) {
+    throw new Error("useDefect must be used within a DefectProvider");
+  }
+  return context;
+};

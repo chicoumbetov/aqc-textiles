@@ -1,3 +1,4 @@
+"use client";
 import { MOCK_ROLL_ID } from "@/lib/constants";
 import { useDefect } from "@/lib/contexts/defect-context";
 
@@ -17,13 +18,17 @@ const DefectChart = () => {
   if (loading)
     return <div className="text-center p-8">Loading analytics...</div>;
 
+  const analyticsData = analytics || [];
+
+  console.log("analyticsData :", analyticsData);
+
   return (
     <div className="bg-white p-6 rounded-xl shadow-lg h-full flex flex-col">
       <h2 className="text-xl font-bold mb-4 text-gray-800">
         Defect Analytics (Roll {MOCK_ROLL_ID})
       </h2>
       <div className="space-y-3 overflow-y-auto">
-        {analytics.map((item: any) => (
+        {analyticsData?.map((item: any) => (
           <button
             key={item.type}
             onClick={() => handleTypeClick(item.type)}
@@ -45,7 +50,7 @@ const DefectChart = () => {
         ))}
       </div>
       <p className="text-sm text-gray-500 mt-4">
-        {`Total Defects: ${analytics.reduce(
+        {`Total Defects: ${analyticsData.reduce(
           (sum: any, item: any) => sum + item.count,
           0
         )}`}
